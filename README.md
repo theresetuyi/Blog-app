@@ -1,3 +1,6 @@
+
+# Blog App
+
 # 📗 Table of Contents
 
 - [📗 Table of Contents](#-table-of-contents)
@@ -22,11 +25,9 @@
 
 # 📖 Project Name <a name="about-project"></a>
 # Blog App
-
 > This app is a simple app which mimics a real world blog website where users can post comments and see the comments made by other users.
 
 ## Built With
-
 - Ruby
 - Ruby on Rails
 
