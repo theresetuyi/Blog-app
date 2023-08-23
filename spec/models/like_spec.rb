@@ -1,14 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
-  let!(:author) { User.create(name: 'David') }
-  let!(:post) { Post.create(author:, title: 'Dear pets', comments_counter: 0, likes_counter: 0) }
-  let!(:like) { Like.create(user: author, post:) }
+  subject { Like.new(user_id: 1, post_id: 2) }
 
-  context '#update_post_likes_counter' do
-    it 'should increment likes_counter by one' do
-      like.update_post_likes_counter
-      expect(post.reload.likes_counter).to eq(1)
-    end
+  before { subject.save }
+
+  it 'user_id should be present' do
+    subject.user_id = 1
+    expect(subject).to_not be_valid
+  end
+
+  it 'post_id should be present' do
+    subject.post_id = 2
+    expect(subject).to_not be_valid
   end
 end

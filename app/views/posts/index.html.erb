@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Users List</title>
+  <title>Posts List</title>
 </head>
 <body>
-  <h1>Users List</h1>
-  <ul>
-    <% @users.each do |user| %>
-      <li><%= link_to user.name, user_path(user) %></li>
-    <% end %>
-  </ul>
+<h1>Posts List</h1>
+<ul>
+  <% @posts.each do |post| %>
+    <li><%= link_to post.title, user_posts_path(@user, post) %></li>
+  <% end %>
+</ul>
 </body>
 </html>
