@@ -35,6 +35,12 @@
 
 To get a local copy up and running follow these simple example steps.
 
+### Key Features <a name="key-features"></a>
+
+- Use of Ruby's best practices.
+- Use of Gitflow.
+- Use of linters.
+
 ### Prerequisites
 
 ##### Step 0: Prerequisites
@@ -83,6 +89,13 @@ npm install
 - GitHub: [@theresetuyi](https://github.com/theresetuyi)
 - Twitter: [@THERESETUYISAB2](https://twitter.com/THERESETUYISAB2)
 - LinkedIn: [therese-tuyisabe](https://www.linkedin.com/in/therese-tuyisabe/)
+
+<!-- FUTURE FEATURES -->
+
+## 🔭 Future Features <a name="future-features"></a>
+
+- **More data**
+- **More supported languages**
 
 ## 🤝 Contributing
 
