@@ -34,5 +34,3 @@ RSpec.describe Post, type: :model do
     let!(:post) { Post.create author_id: author.id, title: 'teta', comments_counter: 0, likes_counter: 0 }
   end
 end
-
-
