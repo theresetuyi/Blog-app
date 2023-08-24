@@ -1,23 +1,22 @@
 <section class="users-show">
-  <% user_with_posts_counter = User.find(params[:id]) %>
-
   <div>
     <img src="<%= @user.photo %>" />
     <h1><%= @user.name %></h1>
-    <p>Number of posts:<%= user_with_posts_counter.posts_counter || 0 %></p>
+    <p>Number of posts: <%= @user.posts_counter || 0 %></p>
     <p><%= @user.bio %></p>
   </div>
 </section>
-   <div>
-    <% @user.posts.each do |e| %>
-        <div class="posts">
-            <h1>Post: <%= e.title %></h1>
-            <p><%= e.text %></p>
-            <div>
-            <span>Comments:<%= e.comments_counter || 0%></span>
-            <span>Likes:<%= e.likes_counter || 0%></span>
-            </div>
-          </div>
-    <% end %>
-<button><%=link_to "See all posts", user_posts_path(@user) %></button>
+
+<div>
+  <% @user.recent_posts.each do |post| %>
+    <div class="posts">
+      <h1>Post: <%= post.title %></h1>
+      <p><%= post.text %></p>
+      <div>
+        <span>Comments: <%= post.comments_counter || 0 %></span>
+        <span>Likes: <%= post.likes_counter || 0 %></span>
+      </div>
     </div>
+  <% end %>
+  <button><%= link_to "See all posts", user_posts_path(@user) %></button>
+</div>
