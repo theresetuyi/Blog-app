@@ -9,8 +9,8 @@
         <p>Comments <%= post.comments_counter %>, Likes <%= post.likes_counter %></p>
         <ul>
           <% post.recent_comments.each do |comment| %>
-            <% if comment.author %>
-              <li><%= comment.author.name %> : <%= comment.text %></li>
+            <% if comment.user %>
+              <li><%= comment.user.name %> : <%= comment.text %></li>
             <% else %>
               <li><%= comment.text %></li>
             <% end %>
