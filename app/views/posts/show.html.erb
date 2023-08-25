@@ -12,4 +12,9 @@
       <li><%= comment.user.name %> : <%= comment.text %></li>
     <% end %>
   </ul>
+  <%= form_with url: "/posts/#{@post.id}/likes", scope: :like do |form| %>
+  <%= form.submit "Like" %>
+<% end %>
+
+ <%= render partial: "create_comments", local: { post: @post } %> 
 </div>
