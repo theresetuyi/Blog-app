@@ -1,13 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>User Profile</title>
-</head>
-<body>
-  <h1>User Profile</h1>
-  <p><strong>Name:</strong> <%= @user.name %></p>
-  <!-- Add more attributes here if needed -->
+<section class="users-show">
+  <div>
+    <img src="<%= @user.photo %>" />
+    <h1><%= @user.name %></h1>
+    <p>Number of posts: <%= @user.posts_counter || 0 %></p>
+    <p><%= @user.bio %></p>
+  </div>
+</section>
 
-  <%= link_to 'Back to Users List', users_path %>
-</body>
-</html>
+<div>
+  <% @user.recent_posts.each do |post| %>
+    <div class="posts">
+      <h1>Post: <%= post.title %></h1>
+      <p><%= post.text %></p>
+      <div>
+        <span>Comments: <%= post.comments_counter || 0 %></span>
+        <span>Likes: <%= post.likes_counter || 0 %></span>
+      </div>
+    </div>
+  <% end %>
+  <button><%= link_to "See all posts", user_posts_path(@user) %></button>
+</div>
