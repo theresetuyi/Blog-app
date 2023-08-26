@@ -1,6 +1,6 @@
 class LikesController < ApplicationController
-  def current_user
-    @current_user ||= User.first
+  def create
+    @like = Like.create(author_id: current_user.id, post_id: params[:post_id])
+    redirect_to "/users/1/posts/#{@like.post_id}"
   end
-  helper_method :current_user
 end

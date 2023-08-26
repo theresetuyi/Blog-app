@@ -12,25 +12,18 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
-  def create
-    new_post = current_user.posts.new(post_params)
-    new_post.likes_counter = 0
-    new_post.comments_counter = 0
-
-    respond_to do |format|
-      format.html do
-        if new_post.save
-          redirect_to "/users/#{new_post.author_id}/posts/", notice: 'Post was successfully created.'
-        else
-          render :new, status: 'Error occured will creating post!'
-        end
-      end
-    end
+  def post_path(post_id)
+    @post = Post.find(post_id)
+    Rails.application.routes.url_for(controller: 'posts', action: 'show', id: post_id)
   end
 
-  private
-
-  def post_params
-    params.require(:post).permit(:title, :text)
+  def create
+    @post = Post.new(author_id: current_user.id, title: params[:title],
+                     text: params[:text], comments_counter: 0, likes_counter: 0)
+    if @post.save
+      redirect_to "/users/#{current_user.id}/posts/#{@post.id}"
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 end

@@ -1,5 +1,4 @@
 <h1>Posts#index</h1>
-
 <div>
   <ul>
     <% @posts.each do |post| %>
@@ -9,13 +8,10 @@
         <p>Comments <%= post.comments_counter %>, Likes <%= post.likes_counter %></p>
         <ul>
           <% post.recent_comments.each do |comment| %>
-            <% if comment.user %>
-              <li><%= comment.user.name %> : <%= comment.text %></li>
-            <% else %>
-              <li><%= comment.text %></li>
-            <% end %>
+            <!-- Comment display code here -->
           <% end %>
         </ul>
+        <%= link_to 'Show', post_path(post), class: 'btn btn-primary' %>
       </li>
     <% end %>
   </ul>
