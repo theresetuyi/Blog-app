@@ -1,15 +1,30 @@
-<h1>Show post</h1>
-
-
 <div>
-  <div>
-    <p><%= @post.title %> by <%= @post.author.name %></p>
-    <p>Comments: <%= @post.comments_counter %>, Likes: <%= @post.likes_counter %></p>
+    <%= link_to 'Home', root_path %>
   </div>
+
+  <h2>Post id: <%= @post.id %></h2>
+  <h2>Post title: <%= @post.title %></h2>
+  <span>Comments: <%= @post.comments_counter %></span>
+  <% turbo_frame_tag 'likes_counter' do %>
+  <% end %>
+  <span>Likes: <%= @post.likes_counter %></span>
   <p><%= @post.text %></p>
-  <ul>
-    <% @post.comments.each do |comment| %>
-      <li><%= comment.user.name %> : <%= comment.text %></li>
-    <% end %>
-  </ul>
-</div>
+
+  <h2>Comments</h2>
+
+  <% @post.comments.each do |comment| %>
+
+    <p>Comment content: <%= comment.text %></p>
+    <p>Comment author: <%= comment.author.name if comment.author %>
+      <% current_user &&= User.find(session[:user_id]) %>
+      <%= button_to 'Delete comment', "/comments/#{comment.id}", method: :delete %>
+    </p>
+  <% end %>
+  <% if @post.comments.empty?%>
+    <p>This post has no comments</p>
+  <% end %>
+  <%= form_with url: '/likes/new' do |form| %>
+    <%= form.hidden_field :post_id, value: @post.id %>
+    <%= form.submit 'Like this post' %>
+  <% end %>
+  <%= link_to 'Create new comment', "/comment/new/#{@post.id}" %>

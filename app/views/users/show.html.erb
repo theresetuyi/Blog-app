@@ -18,5 +18,7 @@
       </div>
     </div>
   <% end %>
+  <% post = @user.posts.first %>
+  <%= link_to "Show Post", post_path(post), {:class => "see_all_post"}%>
   <button><%= link_to "See all posts", user_posts_path(@user) %></button>
 </div>
