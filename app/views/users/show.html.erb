@@ -4,6 +4,8 @@
     <h1><%= @user.name %></h1>
     <p>Number of posts: <%= @user.posts_counter || 0 %></p>
     <p><%= @user.bio %></p>
+    <h3>Bio:</h3>
+    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit accumsan senectus molestie iaculis, pulvinar facilisi litora eu venenatis vulputate per aliquam cum commodo, himenaeos praesent maecenas montes augue varius in ornare pharetra nulla. Vitae non in duis inceptos a venenatis dis, urna at pretium habitant facilisis ac nunc, aliquet natoque proin ante ornare magnis. Commodo nullam mi lacus est consequat id phasellus sociosqu, per fermentum neque nisl ridiculus rutrum pharetra conubia, gravida dictumst torquent praesent pulvinar quisque porta.</p>
   </div>
 </section>
 
@@ -18,7 +20,11 @@
       </div>
     </div>
   <% end %>
-  <% post = @user.posts.first %>
-  <%= link_to "Show Post", post_path(post), {:class => "see_all_post"}%>
+  
+  <% if @user.posts.any? %>
+    <% post = @user.posts.first %>
+    <%= link_to "Show Post", post_path(post), {:class => "see_all_post"}%>
+  <% end %>
+  
   <button><%= link_to "See all posts", user_posts_path(@user) %></button>
 </div>

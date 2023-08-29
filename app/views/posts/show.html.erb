@@ -14,8 +14,8 @@
 
   <% @post.comments.each do |comment| %>
 
-    <p>Comment content: <%= comment.text %></p>
     <p>Comment author: <%= comment.author.name if comment.author %>
+    <p>Comment content: <%= comment.text %></p>
       <% current_user &&= User.find(session[:user_id]) %>
       <%= button_to 'Delete comment', "/comments/#{comment.id}", method: :delete %>
     </p>
