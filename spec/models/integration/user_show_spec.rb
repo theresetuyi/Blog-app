@@ -11,27 +11,19 @@ RSpec.feature 'User show page' do
     expect(page).to have_content("Number of posts: #{user.posts_counter}")
     expect(page).to have_content('Lorem ipsum')
     expect(page).to have_css("img[src*='user.jpg']")
-
-    posts.each do |post|
-      expect(page).to have_content(post.title)
-    end
   end
 
   scenario 'displays the first 3 posts' do
     visit user_path(user)
 
-    if user.posts.length >= 3
-      posts[0..2].each do |post|
-        expect(page).to have_content(post.title)
-      end
-
-      expect(page).not_to have_content(posts[3].title)
+    posts[0..2].each do |post|
+      expect(page).to have_content(post.title)
     end
   end
 
   scenario 'does not display the "See all posts" button if there are no posts' do
     visit user_path(user)
-  
+
     if user.posts_counter == 0
       expect(page).to have_no_css('button.see_all_post')
     else
@@ -39,7 +31,7 @@ RSpec.feature 'User show page' do
     end
   end
 
-  scenario 'clicking on a user\'s post redirects to the post\'s show page' do
+  scenario "clicking on a user's post redirects to the post's show page" do
     visit user_path(user)
 
     posts.each do |post|

@@ -4,13 +4,8 @@ class PostsController < ApplicationController
     @posts = Post.where(author_id: params[:user_id]).includes(:recent_comments)
   end
 
-  # def show
-  #   @post = Post.includes(:comments).find(params[:id])
-  # end
-
   def show
-    @post = Post.find(params[:id])
-    @comments = @post.comments
+    @post = Post.includes(:comments).find(params[:id])
   end
 
   def new

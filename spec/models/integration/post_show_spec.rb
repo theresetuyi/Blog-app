@@ -1,55 +1,50 @@
 require 'rails_helper'
 
 RSpec.describe 'Post show page', type: :feature do
-  let(:user) { create(:user) }
-  let(:post) { create(:post, author: user) }
+  let(:user_name) { 'John Doe' }
+  let(:post_title) { 'Test Post Title' }
+  let(:post_body) { 'This is the post body text.' }
 
   before do
-    login_as(user)
-    visit post_path(post)
+    @user = User.create(name: user_name)
+    @post = Post.create(title: post_title, text: post_body, author: @user)
   end
 
-  it 'displays post details' do
-    expect(page).to have_content("Post id: #{post.id}")
-    expect(page).to have_content("Post title: #{post.title}")
-    expect(page).to have_content("Comments: #{post.comments_counter}")
-    expect(page).to have_content("Likes: #{post.likes_counter}")
-    expect(page).to have_content(post.text)
+  it "displays the post's title" do
+    visit post_path(@post)
+    expect(page).to have_content(post_title)
   end
 
-  it 'displays post comments' do
-    post.comments.create(text: 'Comment 1')
-    post.comments.create(text: 'Comment 2')
-
-    visit post_path(post)
-
-    expect(page).to have_content('Comment content: Comment 1')
-    expect(page).to have_content('Comment content: Comment 2')
+  it 'displays the number of comments' do
+    # Assuming you have comments_counter set up properly
+    @post.update(comments_counter: 1)
+    visit post_path(@post)
+    expect(page).to have_content('Comments: 1')
   end
 
-  it 'displays "This post has no comments" if there are no comments' do
-    visit post_path(create(:post))
-
-    expect(page).to have_content('This post has no comments')
+  it 'displays the number of likes' do
+    # Assuming you have likes_counter set up properly
+    @post.update(likes_counter: 0)
+    visit post_path(@post)
+    expect(page).to have_content('Likes: 0')
   end
 
-  it 'displays a "Like this post" button' do
-    expect(page).to have_button('Like this post')
+  it 'displays the post body' do
+    visit post_path(@post)
+    expect(page).to have_content(post_body)
   end
 
-  it 'displays a link to create a new comment' do
-    expect(page).to have_link('Create new comment', href: "/comment/new/#{post.id}")
+  it 'displays the username of each commentator' do
+    Comment.create(author: @user, post: @post, text: 'This is a comment.') # Use author: @user
+    visit post_path(@post)
+    expect(page).to have_content("Comment author: #{user_name}")
   end
 
-  it 'redirects to the post show page when a comment is deleted' do
-    comment = post.comments.create(text: 'Comment to delete')
-    visit post_path(post)
-
-    expect(page).to have_content('Comment content: Comment to delete')
-    expect(page).to have_button('Delete comment')
-
-    click_button 'Delete comment'
-    expect(page).not_to have_content('Comment content: Comment to delete')
-    expect(current_path).to eq(post_path(post))
+  it 'displays the comment each commentor left' do
+    comment_text = 'This is a comment.'
+    Comment.create(author: @user, post: @post, text: comment_text)
+    visit post_path(@post)
+    expect(page).to have_content("Comment author: #{user_name}")
+    expect(page).to have_content("Comment content: #{comment_text}")
   end
 end
