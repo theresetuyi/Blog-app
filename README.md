@@ -43,6 +43,11 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
+## to config email account:
+- https://help.warmupinbox.com/en/articles/4934806-configure-for-google-workplace-with-two-factor-authentication-2fa
+## create a App password:
+https://myaccount.google.com/apppasswords?utm_source=google-account&utm_medium=myaccountsecurity&utm_campaign=tsv-settings&rapt=AEjHL4PWzrboEKqAJ1-uFiT_jc_JM7D04bZJ4RO6XgHr0kfA3EVo-zMEW8QSMS-wHxDfRHi83r9D_pwiNb9lH5DyMko0upx3EA
+
 ##### Step 0: Prerequisites
 - A text editor [Vscode](https://code.visualstudio.com/download)
 
