@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Post show page', type: :feature do
-  let(:user_name) { 'John Doe' }
   let(:post_title) { 'Test Post Title' }
   let(:post_body) { 'This is the post body text.' }
 
   before do
-    @user = User.create(name: user_name)
+    @user = User.create(name: 'John Doe')
     @post = Post.create(title: post_title, text: post_body, author: @user)
   end
 
@@ -37,14 +36,14 @@ RSpec.describe 'Post show page', type: :feature do
   it 'displays the username of each commentator' do
     Comment.create(author: @user, post: @post, text: 'This is a comment.') # Use author: @user
     visit post_path(@post)
-    expect(page).to have_content("Comment author: #{user_name}")
+    expect(page).to have_content('Comment author: John Doe')
   end
 
-  it 'displays the comment each commentor left' do
+  it 'displays the comment each commentator left' do
     comment_text = 'This is a comment.'
     Comment.create(author: @user, post: @post, text: comment_text)
     visit post_path(@post)
-    expect(page).to have_content("Comment author: #{user_name}")
+    expect(page).to have_content('Comment author: John Doe')
     expect(page).to have_content("Comment content: #{comment_text}")
   end
 end

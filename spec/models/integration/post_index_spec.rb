@@ -1,32 +1,47 @@
 require 'rails_helper'
 
-RSpec.describe 'Post show page', type: :feature do
-  let!(:user) { create(:user) }
-  let!(:post) { create(:post, author: user) }
-
+RSpec.describe 'Post Index', type: :feature do
   before do
-    visit post_path(post)
+    # Create a user and posts with comments
+    @user = User.create(name: 'Test User', photo: 'https://unsplash.com/photos/F_-0BxGuVvo')
+    @posts = []
+    5.times do |i|
+      post = @user.posts.create(title: "Post #{i}", text: "Post text #{i}")
+      post.comments.create(text: "Comment text #{i}")
+      @posts << post
+    end
+
+    # Visit the user's posts path
+    visit user_posts_path(@user)
   end
 
-  it 'displays post details' do
-    expect(page).to have_content("Post id: #{post.id}")
-    expect(page).to have_content("Post title: #{post.title}")
-    expect(page).to have_content("Comments: #{post.comments_counter}")
-    expect(page).to have_content("Likes: #{post.likes_counter}")
-    expect(page).to have_content(post.text)
+  it "displays the user's profile picture" do
+    expect(page).to have_selector("img[src='https://unsplash.com/photos/F_-0BxGuVvo']")
   end
 
-  it 'displays "This post has no comments" if there are no comments' do
-    visit post_path(post)
-
-    expect(page).to have_content('This post has no comments')
+  it "displays the user's username" do
+    expect(page).to have_content(@user.name)
   end
 
-  it 'displays a "Like this post" button' do
-    expect(page).to have_button('Like this post')
+  it 'displays the number of posts the user has written' do
+    expect(page).to have_content('Total posts: 5')
   end
 
-  it 'displays a link to create a new comment' do
-    expect(page).to have_link('Create new comment', href: "/comment/new/#{post.id}")
+  it "displays a post's title" do
+    expect(page).to have_content('Post 0')
+  end
+
+  it "displays some of the post's body" do
+    expect(page).to have_content('Post text 0')
+  end
+
+
+  it 'displays the number of comments on a post' do
+    post = @posts.first
+    expect(page).to have_content("Number of comments: #{post.comments_counter}")
+  end
+
+  it 'displays the number of likes on a post' do
+    expect(page).to have_content('Number of likes: 0')
   end
 end

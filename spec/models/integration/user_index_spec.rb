@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'User index page', type: :request do
-  let!(:user_one) { User.create(name: 'Ange', posts_counter: 2) }
-  let!(:user_two) { User.create(name: 'Peter', posts_counter: 5) }
+  let!(:user_one) { User.create(name: 'Ange', posts_counter: 2, photo: 'ange.jpg') }
+  let!(:user_two) { User.create(name: 'Peter', posts_counter: 5, photo: 'peter.jpg') }
 
   it 'displays user information' do
     get users_path
+    expect(response.body).to include('<p>(Ange profile picture)</p>')
+    expect(response.body).to include('<p>(Peter profile picture)</p>')
     expect(response.body).to include('Ange')
     expect(response.body).to include('Peter')
-    expect(response.body).to include("#{user_one.name} profile picture")
-    expect(response.body).to include("#{user_two.name} profile picture")
     expect(response.body).to include("Number of posts: #{user_one.posts_counter}")
     expect(response.body).to include("Number of posts: #{user_two.posts_counter}")
   end

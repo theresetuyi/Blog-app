@@ -1,7 +1,9 @@
 <div>
   <%= link_to 'Home', root_path %>
 </div>
-<p>(<%= @user.name %> profile picture)</p>
+<p>
+  <%= image_tag @user.photo, alt: @user.name %>
+</p>
 <h2>User name: <%= @user.name %></h2>
 <h3>Total posts: <%= @user.posts_counter %></h3>
 <% @posts.each do |post| %>
@@ -19,7 +21,7 @@
   <% end %>
   <p id="comments_post_<%= post.id %>">Number of comments: <%= post.comments_counter %></p>
   <% if post.comments_counter > 5 %>
-    <button>Comment pagination</button>
+    <%= render partial: 'pagination', locals: { posts: @posts } %>
   <% end %>
   <p id="likes_post_<%= post.id %>">Number of likes: <%= post.likes_counter %> </p>
   <%= link_to 'Create a New Post', new_user_post_path(@user) %>
