@@ -34,7 +34,6 @@ RSpec.describe 'Post Index', type: :feature do
     expect(page).to have_content('Post text 0')
   end
 
-
   it 'displays the number of comments on a post' do
     post = @posts.first
     expect(page).to have_content("Number of comments: #{post.comments_counter}")
