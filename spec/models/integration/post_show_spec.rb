@@ -15,7 +15,6 @@ RSpec.describe 'Post show page', type: :feature do
   end
 
   it 'displays the number of comments' do
-    # Assuming you have comments_counter set up properly
     @post.update(comments_counter: 1)
     visit post_path(@post)
     expect(page).to have_content('Comments: 1')
