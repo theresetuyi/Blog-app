@@ -11,7 +11,6 @@ RSpec.describe 'Post Index', type: :feature do
       @posts << post
     end
 
-    # Visit the user's posts path
     visit user_posts_path(@user)
   end
 
