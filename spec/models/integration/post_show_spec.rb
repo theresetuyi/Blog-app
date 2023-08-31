@@ -45,4 +45,8 @@ RSpec.describe 'Post show page', type: :feature do
     expect(page).to have_content('Comment author: John Doe')
     expect(page).to have_content("Comment content: #{comment_text}")
   end
+  it 'displays the username of the post author' do
+    visit post_path(@post)
+    expect(page).to have_content("by #{User.find(@post.author_id).name}")
+  end
 end

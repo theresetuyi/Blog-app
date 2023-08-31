@@ -42,4 +42,7 @@ RSpec.describe 'Post Index', type: :feature do
   it 'displays the number of likes on a post' do
     expect(page).to have_content('Number of likes: 0')
   end
+  it 'can see a button pagination' do
+    expect(page).to have_selector(:link_or_button, 'Pagination')
+  end
 end

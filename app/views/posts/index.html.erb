@@ -20,9 +20,7 @@
     <% end %>
   <% end %>
   <p id="comments_post_<%= post.id %>">Number of comments: <%= post.comments_counter %></p>
-  <% if post.comments_counter > 5 %>
-    <%= render partial: 'pagination', locals: { posts: @posts } %>
-  <% end %>
+  <button type="button" class="btn">Pagination</button>
   <p id="likes_post_<%= post.id %>">Number of likes: <%= post.likes_counter %> </p>
   <%= link_to 'Create a New Post', new_user_post_path(@user) %>
 <% end %>
