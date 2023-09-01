@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :destroy]
+
   def index
     @user = User.find(params[:user_id])
     @posts = Post.where(author_id: params[:user_id]).includes(:recent_comments)
@@ -12,18 +14,26 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
-  def post_path(post_id)
-    @post = Post.find(post_id)
-    Rails.application.routes.url_for(controller: 'posts', action: 'show', id: post_id)
-  end
-
   def create
     @post = Post.new(author_id: current_user.id, title: params[:title],
                      text: params[:text], comments_counter: 0, likes_counter: 0)
     if @post.save
-      redirect_to "/users/#{current_user.id}/posts/#{@post.id}"
+      redirect_to user_post_path(current_user, @post), notice: 'Post was successfully created.'
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+
+    # Use authorize! to check authorization
+    authorize! :destroy, @post
+
+    if @post.destroy
+      redirect_to posts_path, notice: 'Post was successfully deleted.'
+    else
+      redirect_to posts_path, alert: 'Failed to delete the post.'
     end
   end
 end

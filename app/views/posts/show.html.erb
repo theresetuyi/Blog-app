@@ -12,10 +12,11 @@
 
   <% @post.comments.includes(:author).each do |comment| %>
 
-    <p>Comment author: <%= comment.author.name if comment.author %>
+    <p>Comment author: <%= comment.author.name if comment.author %></p>
     <p>Comment content: <%= comment.text %></p>
-      <%= button_to 'Delete comment', "/comments/#{comment.id}", method: :delete %>
-    </p>
+    <% if can? :destroy, comment %>
+    <%= button_to 'Delete comment', comment_path(comment), method: :delete, data: { confirm: 'Are you sure you want to delete this comment?' }, class: 'btn btn-danger' %>
+  <% end %>
   <% end %>
   <% if @post.comments.empty?%>
     <p>This post has no comments</p>
