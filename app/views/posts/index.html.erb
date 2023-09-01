@@ -2,7 +2,11 @@
   <%= link_to 'Home', root_path %>
 </div>
 <p>
-  <%= image_tag @user.photo, alt: @user.name %>
+  <%# image_tag @user.photo, alt: @user.name %>
+  
+  <%= @user.photo %>
+  <%= @user.name %>
+  <%= params %>
 </p>
 <h2>User name: <%= @user.name %></h2>
 <h3>Total posts: <%= @user.posts_counter %></h3>
