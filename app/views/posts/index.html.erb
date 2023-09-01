@@ -1,18 +1,26 @@
-<h1>Posts#index</h1>
 <div>
-  <ul>
-    <% @posts.each do |post| %>
-      <li>
-        <h3 class="mb-2 text-sm font-bold"><%= post.title %> #<%= post.id %></h3>
-        <p><%= post.text %></p>
-        <p>Comments <%= post.comments_counter %>, Likes <%= post.likes_counter %></p>
-        <ul>
-          <% post.recent_comments.each do |comment| %>
-            <!-- Comment display code here -->
-          <% end %>
-        </ul>
-        <%= link_to 'Show', post_path(post), class: 'btn btn-primary' %>
-      </li>
-    <% end %>
-  </ul>
+  <%= link_to 'Home', root_path %>
 </div>
+<p>
+  <%= image_tag @user.photo, alt: @user.name %>
+</p>
+<h2>User name: <%= @user.name %></h2>
+<h3>Total posts: <%= @user.posts_counter %></h3>
+<% @posts.each do |post| %>
+  <h3>Post id: <%= post.id %></h3>
+  <h4><%= post.title %></h4>
+  <p><%= post.text %></p>
+  <h3>Comments</h3>
+  <% post.recent_comments.each do |comment| %>
+    <p class="comment"><%= comment.text %></p>
+    <% if comment.author %>
+      <p>Comment author: <%= comment.author.name %></p>
+    <% else %>
+      <p>Comment author: Anonymous</p>
+    <% end %>
+  <% end %>
+  <p id="comments_post_<%= post.id %>">Number of comments: <%= post.comments_counter %></p>
+  <button type="button" class="btn">Pagination</button>
+  <p id="likes_post_<%= post.id %>">Number of likes: <%= post.likes_counter %> </p>
+  <%= link_to 'Create a New Post', new_user_post_path(@user) %>
+<% end %>

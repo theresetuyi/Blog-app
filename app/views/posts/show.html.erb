@@ -3,20 +3,17 @@
   </div>
 
   <h2>Post id: <%= @post.id %></h2>
-  <h2>Post title: <%= @post.title %></h2>
+  <h2>Post title: <%= @post.title%> by <%= User.find(@post.author_id).name%> </h2>
   <span>Comments: <%= @post.comments_counter %></span>
-  <% turbo_frame_tag 'likes_counter' do %>
-  <% end %>
   <span>Likes: <%= @post.likes_counter %></span>
   <p><%= @post.text %></p>
 
   <h2>Comments</h2>
 
-  <% @post.comments.each do |comment| %>
+  <% @post.comments.includes(:author).each do |comment| %>
 
-    <p>Comment content: <%= comment.text %></p>
     <p>Comment author: <%= comment.author.name if comment.author %>
-      <% current_user &&= User.find(session[:user_id]) %>
+    <p>Comment content: <%= comment.text %></p>
       <%= button_to 'Delete comment', "/comments/#{comment.id}", method: :delete %>
     </p>
   <% end %>

@@ -3,6 +3,7 @@
     <img src="<%= @user.photo %>" />
     <h1><%= @user.name %></h1>
     <p>Number of posts: <%= @user.posts_counter || 0 %></p>
+    <h3>Bio:</h3>
     <p><%= @user.bio %></p>
   </div>
 </section>
@@ -18,7 +19,11 @@
       </div>
     </div>
   <% end %>
-  <% post = @user.posts.first %>
-  <%= link_to "Show Post", post_path(post), {:class => "see_all_post"}%>
+  
+  <% if @user.posts.any? %>
+    <% post = @user.posts.first %>
+    <%= link_to "Show Post", post_path(post), {:class => "see_all_post"}%>
+  <% end %>
+  
   <button><%= link_to "See all posts", user_posts_path(@user) %></button>
 </div>

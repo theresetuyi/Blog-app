@@ -90,6 +90,15 @@ npm install
 - Twitter: [@THERESETUYISAB2](https://twitter.com/THERESETUYISAB2)
 - LinkedIn: [therese-tuyisabe](https://www.linkedin.com/in/therese-tuyisabe/)
 
+
+
+👤 **Edahi Antonio Gutiérrez Reyes**
+
+- GitHub: [@edahigure](https://github.com/edahigure)
+- Twitter: [@edahigure](https://twitter.com/edahigure)
+- LinkedIn: [edahigure](https://www.linkedin.com/in/edahigure/)
+
+
 <!-- FUTURE FEATURES -->
 
 ## 🔭 Future Features <a name="future-features"></a>
