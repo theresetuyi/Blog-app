@@ -13,3 +13,22 @@
  *= require_tree .
  *= require_self
  */
+
+.intro-wrap {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: center;
+  gap: 12px;
+}
+
+.field1 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+}
+
+.input-inf {
+  width: 50%;
+}
